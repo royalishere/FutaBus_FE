@@ -1,166 +1,119 @@
-import React, { useEffect, useState } from 'react'
-import Dropdown from '../HomePage/component/drop-down'
+import React, {useEffect, useState} from 'react'
+import Dropdown from '../../components/drop-down.jsx'
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
+import RouteHolder from "../../components/RouteHolder.jsx";
+
 const Schedule = () => {
-  const routes = [
-    {
-      route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
-      type: 'Giường',
-      distance: '639km',
-      duration: '11 giờ 30 phút',
-      price: '---',
-    },
-    {
-      route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
-      type: 'Giường',
-      distance: '660km',
-      duration: '13 giờ 46 phút',
-      price: '---',
-    },
-    {
-      route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
-      type: '---',
-      distance: '627km',
-      duration: '10 giờ 7 phút',
-      price: '---',
-    },
-  ]
-  const [form, setForm] = useState({
-    depart: null, // Initial value for departure selection
-    arrive: null, // Initial value for arrival selection
-  })
-  const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
-  ]
-  const handleSubmit = () => {
-    console.log(form)
-  }
-  useEffect(() => {
-    handleSubmit()
-  }, [form])
-  return (
-    <div className='bg-black/20'>
-        <Header/>
-        <div className=' relative container my-5 w-[60%]'>
-            <div className='relative container my-5 py-3 w-[60%]  rounded-md border-2 bg-white p-4 border-blue-500   '>
-                <div className='flex items-center justify-between gap-3 '>
-                <Dropdown
-                    title={'Điểm đi'}
-                    label='Select an option'
-                    options={options}
-                    onSelect={(value) => {
-                    setForm({ ...form, depart: value?.value })
-                    }}
-                />
-                <div className='h-10 w-10 flex items-center justify-center text-center rounded-full bg-blue-300 text-white'>
-                    ⇀
+    const routes = [
+        {
+            route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
+            type: 'Giường',
+            distance: '639km',
+            duration: '11 giờ 30 phút',
+            price: '120.000',
+        },
+        {
+            route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
+            type: 'Giường',
+            distance: '660km',
+            duration: '13 giờ 46 phút',
+            price: '120.000',
+        },
+        {
+            route: 'An Nhơn ⇀ TP. Hồ Chí Minh',
+            type: 'Thường',
+            distance: '627km',
+            duration: '10 giờ 7 phút',
+            price: '120.000',
+        },
+    ]
+
+    const routesList = [routes, routes];
+
+    const [form, setForm] = useState({
+        depart: null, // Initial value for departure selection
+        arrive: null, // Initial value for arrival selection
+    })
+    const options = [
+        {value: 'option1', label: 'Option 1'},
+        {value: 'option2', label: 'Option 2'},
+        {value: 'option3', label: 'Option 3'},
+    ]
+    const handleSubmit = () => {
+        //
+    }
+    useEffect(() => {
+        handleSubmit()
+    }, [form])
+    return (
+        <div className='bg-gray-100'>
+            <Header/>
+            <div className=' relative container my-5 w-[70%]'>
+                <div className='relative container my-5 py-3 w-[60%]  rounded-md  bg-white p-4 border-blue-500 shadow-xl'>
+                    <div className='flex items-center justify-between gap-3 '>
+                        <Dropdown
+                            title={'Điểm đi'}
+                            label='Select an option'
+                            options={options}
+                            onSelect={(value) => {
+                                setForm({...form, depart: value?.value})
+                            }}
+                        />
+                        <div className='h-10 w-10 flex items-center justify-center text-center rounded-full bg-blue-300 text-white'>
+                            ⇀
+                        </div>
+                        <Dropdown
+                            title={'Điểm đến'}
+                            label='Select an option'
+                            options={options}
+                            onSelect={(value) => {
+                                setForm({...form, arrive: value?.value})
+                            }}
+                        />
+                    </div>
                 </div>
-                <Dropdown
-                    title={'Điểm đến'}
-                    label='Select an option'
-                    options={options}
-                    onSelect={(value) => {
-                    setForm({ ...form, arrive: value?.value })
-                    }}
-                />
+                <div className='flex flex-col items-center space-y-4 text-black my-3 lg:text-sm'>
+                    <div className='min-w-full drop-shadow-lg'>
+                        <div className='flex rounded-3xl bg-white border-orange-500 border-1 py-3 text-left'>
+                            <div className='w-1/5 px-8'>
+                                Tuyến xe
+                            </div>
+                            <div className='w-1/6 px-8'>
+                                Loại xe
+                            </div>
+                            <div className='w-1/6'>
+                                Quãng đường
+                            </div>
+                            <div className='w-1/6'>
+                                Thời gian hành trình
+                            </div>
+                            <div className='w-1/6'>
+                                Giá vé
+                            </div>
+                            <div className='px-6 bg-white'></div>
+                        </div>
+                        <div className='mt-4'>
+                            {routesList.map((routes, index) => (
+                                <div key={index} className='mb-6'>
+                                    <div className=' bg-gray-100 p-4 rounded-md'>
+                                        <div className='min-w-full flex flex-col space-y-2 overflow-auto max-h-[150px]'>
+                                            {routes.map((route, idx) => (
+                                                <RouteHolder key={idx} route={route}/>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            <div className='flex items-center space-x-4 text-black my-3'>
-                <table className='min-w-full '>
-                <thead>
-                    <tr className='border-seperate'>
-                    <th className='rounded-l-md px-6 py-3 border-y-2 border-l-2  text-left leading-4 text-gray-600 bg-white'>
-                        Tuyến xe
-                    </th>
-                    <th className='px-6 py-3 border-y-2  text-left leading-4 text-gray-600 bg-white'>
-                        Loại xe
-                    </th>
-                    <th className='px-6 py-3 border-y-2  text-left leading-4 text-gray-600 bg-white'>
-                        Quãng đường
-                    </th>
-                    <th className='px-6 py-3 border-y-2  text-left leading-4 text-gray-600 bg-white'>
-                        Thời gian hành trình
-                    </th>
-                    <th className='px-6 py-3 border-y-2  text-left leading-4 text-gray-600 bg-white'>
-                        Giá vé
-                    </th>
-                    <th className='rounded-r-md px-6 py-3 border-y-2 border-r-2  bg-white'></th>
-                    </tr>
-                </thead>
-                <tbody className='my-3'>
-                    <tr className='invisible'>
-                    <td className='p-3'>Empty Space</td>
-                    </tr>
-                    {routes.map((route, index) => (
-                    <tr key={index} className='border-b bg-white'>
-                        <td
-                        className={`${index == 0 && 'rounded-tl-md'} ${
-                            index == routes.length - 1 && 'rounded-bl-md'
-                        } px-6 py-4 whitespace-no-wrap`}
-                        >
-                        {route.route}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>{route.type}</td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>
-                        {route.distance}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>
-                        {route.duration}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>{route.price}</td>
-                        <td
-                        className={`${index == 0 && 'rounded-tr-md'} ${
-                            index == routes.length - 1 && 'rounded-br-md'
-                        } px-6 py-4 whitespace-no-wrap`}
-                        >
-                        <button className='bg-red-200 text-red-700 px-3 py-1 rounded'>
-                            Tìm tuyến xe
-                        </button>
-                        </td>
-                    </tr>
-                    ))}
-                    <tr className='invisible'>
-                    <td className='p-3'>Empty Space</td>
-                    </tr>
-                    {routes.map((route, index) => (
-                    <tr key={index} className='border-b bg-white'>
-                        <td
-                        className={`${index == 0 && 'rounded-tl-md'} ${
-                            index == routes.length - 1 && 'rounded-bl-md'
-                        } px-6 py-4 whitespace-no-wrap`}
-                        >
-                        {route.route}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>{route.type}</td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>
-                        {route.distance}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>
-                        {route.duration}
-                        </td>
-                        <td className='px-6 py-4 whitespace-no-wrap'>{route.price}</td>
-                        <td
-                        className={`${index == 0 && 'rounded-tr-md'} ${
-                            index == routes.length - 1 && 'rounded-br-md'
-                        } px-6 py-4 whitespace-no-wrap`}
-                        >
-                        <button className='bg-red-200 text-red-700 px-3 py-1 rounded'>
-                            Tìm tuyến xe
-                        </button>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-                </table>
-            </div>
+            <Footer/>
         </div>
-        <Footer/>
-    </div>
-    
-  )
+
+    )
 }
 
 export default Schedule

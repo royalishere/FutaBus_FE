@@ -7,11 +7,11 @@ const Footer = React.memo(() => {
                 <div className="flex flex-col">
                     <div className="flex flex-col gap-2 justify-content-between max-w-lg">
                         <div className="flex flex-col">
-                            <span className="text-gray-700 uppercase">Trung tâm tổng đài & CSKH</span>
+                            <span className="text-black font-bold uppercase">Trung tâm tổng đài & CSKH</span>
                             <a href="tel:1900 6609" className="text-orange-600 font-bold text-3xl">1900 6609</a>
                         </div>
                         <span className="text-green-700">CÔNG TY CỔ PHẦN XE KHÁCH PHƯƠNG TRANG - FUTA BUS LINES</span>
-                        <span className="text-gray-700">Địa chỉ:Tố 01 Tô Hiến Thành, Phường 3, Thành phố Đà Lạt, Tỉnh Lâm Đồng, Việt Nam.</span>
+                        <span className="text-black">Địa chỉ:Tố 01 Tô Hiến Thành, Phường 3, Thành phố Đà Lạt, Tỉnh Lâm Đồng, Việt Nam.</span>
                         <div className="flex justify-between">
                             <a href="mailto:hotro@futa.vn" className="text-orange-600 decoration-0">hotro@futa.vn</a>
                             <span className="text-gray-700">Tel: <a href="#" className="text-orange-600">02838386852</a></span>

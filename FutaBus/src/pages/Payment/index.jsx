@@ -5,28 +5,29 @@ import QRcode from '../../assets/QR_code.svg';
 import SmartBanking from '../../assets/smart_banking.svg';
 import ZaloPay from '../../assets/zalopay.svg';
 import MoMo from '../../assets/momo.svg';
+import Footer from "../../components/Footer.jsx";
 
 const PaymentInfoComponent = () => {
     return (
         <>
-            <Header />
+            <Header/>
             <div className="payment-info-container">
                 <div className="payment-column">
                     <h3>Chọn phương thức thanh toán</h3>
                     <form className='payment-method'>
                         <label className="payment-option">
-                            <input type="radio" name="paymentMethod" id="bankTransfer" />
-                            <img src={SmartBanking} alt="Payment Method Icon" className="payment-icon" />
+                            <input type="radio" name="paymentMethod" id="bankTransfer"/>
+                            <img src={SmartBanking} alt="Payment Method Icon" className="payment-icon"/>
                             <span>Ngân hàng điện tử</span>
                         </label>
                         <label className="payment-option">
-                            <input type="radio" name="paymentMethod" id="zalopay" />
-                            <img src={ZaloPay} alt="Payment Method Icon" className="payment-icon" />
+                            <input type="radio" name="paymentMethod" id="zalopay"/>
+                            <img src={ZaloPay} alt="Payment Method Icon" className="payment-icon"/>
                             <span>ZaloPay</span>
                         </label>
                         <label className="payment-option">
-                            <input type="radio" name="paymentMethod" id="momo" />
-                            <img src={MoMo} alt="Payment Method Icon" className="payment-icon" />
+                            <input type="radio" name="paymentMethod" id="momo"/>
+                            <img src={MoMo} alt="Payment Method Icon" className="payment-icon"/>
                             <span>MoMo</span>
                         </label>
                     </form>
@@ -35,10 +36,10 @@ const PaymentInfoComponent = () => {
                 <div className="payment-column">
                     <h3>Tổng thanh toán</h3>
                     <p className='number'>500.000đ</p>
-                    
+
                     <h3>Thời gian giữ chỗ còn lại</h3>
                     <p className='number'>19:59</p>
-                    <img src={QRcode} loading="lazy" decoding="async" alt="QR Code" className="qr-code-image" />
+                    <img src={QRcode} loading="lazy" decoding="async" alt="QR Code" className="qr-code-image"/>
                 </div>
 
                 <div className="payment-column">
@@ -99,6 +100,7 @@ const PaymentInfoComponent = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };

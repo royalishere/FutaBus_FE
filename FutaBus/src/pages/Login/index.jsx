@@ -50,12 +50,12 @@ const LoginComponent = () => {
                                         <Form.Group className="mt-3" controlId="formEmail">
                                             <Form.Label className="flex"><EnvelopeIcon
                                                 className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg" required/>
+                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
                                         </Form.Group>
 
                                         <Form.Group className="mt-3" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
                                         </Form.Group>
                                         <Button variant="primary" type="submit" className="mt-4 py-[10px] bg-orange-500 border-0 rounded-3xl w-full hover:bg-orange-700">
                                             Đăng nhập
@@ -70,16 +70,16 @@ const LoginComponent = () => {
                                         <Form.Group className="mt-3" controlId="formEmail">
                                             <Form.Label className="flex"><EnvelopeIcon
                                                 className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 text-lg" required/>
+                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 focus:ring-4 focus:ring-orange-500/[.6] text-lg" required/>
                                         </Form.Group>
 
                                         <Form.Group className="mt-3" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
                                         </Form.Group>
                                         <Form.Group className="mt-3" controlId="formConfirmPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Xác nhận mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
                                         </Form.Group>
                                         <Button variant="primary" type="submit" className="mt-4 py-[10px] bg-orange-500 border-0 rounded-3xl w-full hover:bg-orange-700">
                                             Đăng ký
