@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import Dropdown from '../../components/drop-down.jsx'
+import DropDown from '../../components/DropDown.jsx'
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
 import RouteHolder from "../../components/RouteHolder.jsx";
@@ -52,7 +52,7 @@ const Schedule = () => {
             <div className=' relative container my-5 w-[70%]'>
                 <div className='relative container my-5 py-3 w-[60%]  rounded-md  bg-white p-4 border-blue-500 shadow-xl'>
                     <div className='flex items-center justify-between gap-3 '>
-                        <Dropdown
+                        <DropDown
                             title={'Điểm đi'}
                             label='Select an option'
                             options={options}
@@ -63,7 +63,7 @@ const Schedule = () => {
                         <div className='h-10 w-10 flex items-center justify-center text-center rounded-full bg-blue-300 text-white'>
                             ⇀
                         </div>
-                        <Dropdown
+                        <DropDown
                             title={'Điểm đến'}
                             label='Select an option'
                             options={options}

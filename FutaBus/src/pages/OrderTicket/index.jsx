@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import Dropdown from '../../components/drop-down.jsx'
-import CalendarDropdown from '../../components/calendar.jsx'
+import DropDown from '../../components/DropDown.jsx'
+import CalendarDropdown from '../../components/Calendar.jsx'
 import Ticket from '../../components/Ticket.jsx'
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
@@ -60,7 +60,7 @@ export default function OrderTicket() {
                     <span className='text-xl font-semibold'>Chuyến một chiều</span>
                 </div>
                 <div className='flex items-center justify-between gap-3 '>
-                    <Dropdown
+                    <DropDown
                         title={'Điểm đi'}
                         label='Select an option'
                         options={options}
@@ -68,7 +68,7 @@ export default function OrderTicket() {
                             setForm({...form, depart: value?.value})
                         }}
                     />
-                    <Dropdown
+                    <DropDown
                         title={'Điểm đến'}
                         label='Select an option'
                         options={options}
@@ -82,7 +82,7 @@ export default function OrderTicket() {
                             setForm({...form, startDate: value})
                         }}
                     />
-                    <Dropdown
+                    <DropDown
                         title={'Số Vé'}
                         label='Select an option'
                         options={options}
