@@ -11,7 +11,28 @@ const options = [
     {value: 'option3', label: 'Option 3'},
 ]
 
-export default function Home() {
+const data = [
+    {
+        start: '19:30',
+        end: '20:30',
+        locationStart: 'Bến Xe Miền Tây',
+        locationEnd: 'VP Bến Xe Vũng Tàu',
+        time: 3,
+        available: 18,
+        price: 135000,
+    },
+    {
+        start: '19:30',
+        end: '20:30',
+        locationStart: 'Bến Xe Miền Tây',
+        locationEnd: 'VP Bến Xe Vũng Tàu',
+        time: 3,
+        available: 18,
+        price: 135000,
+    },
+]
+
+export default function OrderTicket() {
     const [selectedType, setSelectedType] = useState('option1')
     const handleChange = (event) => {
         setSelectedType(event.target.value)
@@ -77,6 +98,11 @@ export default function Home() {
                     Tìm Chuyến Xe
                 </button>
             </div>
+            <>
+                {data.map((e, index) => (
+                    <Ticket {...e} key={index}/>
+                ))}
+            </>
             <Footer/>
         </div>
 
