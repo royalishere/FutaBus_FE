@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Dropdown = ({title, label, options, onSelect}) => {
+const DropDown = ({title, label, options, onSelect}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selected, setSelected] = useState(null)
 
@@ -31,7 +31,7 @@ const Dropdown = ({title, label, options, onSelect}) => {
             {isOpen && (
                 <ul
                     onMouseLeave={handleClick}
-                    className='absolute top-full left-0 w-full rounded-md shadow-md mt-1 bg-white z-50'
+                    className='absolute top-full left-0 w-full rounded-md shadow-md mt-1 bg-white z-50 overflow-y-auto max-h-[300px]'
                 >
                     {options.map((option) => (
                         <li
@@ -48,4 +48,4 @@ const Dropdown = ({title, label, options, onSelect}) => {
     )
 }
 
-export default Dropdown
+export default DropDown

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import Dropdown from '../../components/drop-down.jsx'
-import CalendarDropdown from '../../components/calendar.jsx'
-import Ticket from '../../components/Ticket.jsx'
+import DropDown from '../../components/DropDown.jsx'
+import CalendarDropdown from '../../components/Calendar.jsx'
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
+import {getAllOrigins} from "../../services/origins.jsx";
 
 const options = [
-    {value: 'option1', label: 'Option 1'},
-    {value: 'option2', label: 'Option 2'},
-    {value: 'option3', label: 'Option 3'},
+    {value: 1, label: '1 vé'},
+    {value: 2, label: '2 vé'},
+    {value: 3, label: '3 vé'},
 ]
 
 export default function Home() {
@@ -16,18 +16,24 @@ export default function Home() {
     const handleChange = (event) => {
         setSelectedType(event.target.value)
     }
+
+    const [origins, setOrigins] = useState([]);
+
     const [form, setForm] = useState({
         depart: null, // Initial value for departure selection
         arrive: null, // Initial value for arrival selection
         num: null, // Initial value for number selection
         startDate: null, // Initial value for start date selection
-        endDate: null, // Initial value for end date selection
     })
+
     useEffect(() => {
-        if (selectedType === 'option1') {
-            setForm({...form, endDate: null})
-        }
-    }, [selectedType])
+        getAllOrigins().then((response) => {
+            if (response && response.value) {
+                setOrigins(response.value)
+            }
+        })
+    }, [])
+
     const handleSubmit = () => {
         console.log(form)
     }
@@ -39,18 +45,26 @@ export default function Home() {
                     <span className='text-xl font-semibold'>Chuyến một chiều</span>
                 </div>
                 <div className='flex items-center justify-between gap-3 '>
-                    <Dropdown
+                    <DropDown
                         title={'Điểm đi'}
                         label='Select an option'
-                        options={options}
+                        options={origins.map((origin) => ({
+                            value: origin.code,
+                            label: origin.name
+                        }))}
+
                         onSelect={(value) => {
                             setForm({...form, depart: value?.value})
                         }}
                     />
-                    <Dropdown
+                    <DropDown
                         title={'Điểm đến'}
                         label='Select an option'
-                        options={options}
+                        options={origins.map((origin) => ({
+                            value: origin.code,
+                            label: origin.name
+                        }))}
+
                         onSelect={(value) => {
                             setForm({...form, arrive: value?.value})
                         }}
@@ -61,7 +75,7 @@ export default function Home() {
                             setForm({...form, startDate: value})
                         }}
                     />
-                    <Dropdown
+                    <DropDown
                         title={'Số Vé'}
                         label='Select an option'
                         options={options}
