@@ -1,8 +1,11 @@
 import React from 'react';
 import logo_min from '../assets/logo_min.svg';
 import {UserCircleIcon} from '@heroicons/react/24/outline';
+import Navbar from '../components/NavBar.jsx';
 
 const Header = React.memo(() => {
+    const hideNavbar = window.location.pathname === '/login';
+
     return (
         <>
             <header className="header relative w-full bg-[url('/banner.webp')] min-h-[180px]">
@@ -16,6 +19,7 @@ const Header = React.memo(() => {
                             <UserCircleIcon className="size-6 mr-2"/>Đăng nhập/ Đăng ký</a>
                     </div>
                 </div>
+                {!hideNavbar && <Navbar/>}
             </header>
         </>
     )
