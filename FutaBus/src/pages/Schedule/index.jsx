@@ -3,6 +3,7 @@ import DropDown from '../../components/DropDown.jsx'
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
 import RouteHolder from "../../components/RouteHolder.jsx";
+import {MagnifyingGlassIcon} from '@heroicons/react/24/outline';
 
 const Schedule = () => {
     const routes = [
@@ -50,27 +51,13 @@ const Schedule = () => {
         <div className='bg-gray-100'>
             <Header/>
             <div className=' relative container my-5 w-[70%]'>
-                <div className='relative container my-5 py-3 w-[60%]  rounded-md  bg-white p-4 border-blue-500 shadow-xl'>
-                    <div className='flex items-center justify-between gap-3 '>
-                        <DropDown
-                            title={'Điểm đi'}
-                            label='Select an option'
-                            options={options}
-                            onSelect={(value) => {
-                                setForm({...form, depart: value?.value})
-                            }}
-                        />
-                        <div className='h-10 w-10 flex items-center justify-center text-center rounded-full bg-blue-300 text-white'>
-                            ⇀
-                        </div>
-                        <DropDown
-                            title={'Điểm đến'}
-                            label='Select an option'
-                            options={options}
-                            onSelect={(value) => {
-                                setForm({...form, arrive: value?.value})
-                            }}
-                        />
+                <div className='relative container my-5 py-3 w-min-full rounded-md bg-white sm:p-4 shadow-xl'>
+                    <div className='flex items-center justify-center gap-3 '>
+                        <input type='text' placeholder='Nhập điểm đi' className='px-4 grow lh-lg text-lg border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400'/>
+                        <button className='h-10 w-10 flex justify-center items-center rounded-full bg-orange-500 text-white'>
+                            <MagnifyingGlassIcon className='h-6 w-6'/>
+                        </button>
+                        <input type='text' placeholder='Nhập điểm đến' className='px-4 grow lh-lg text-lg border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400'/>
                     </div>
                 </div>
                 <div className='flex flex-col items-center space-y-4 text-black my-3 lg:text-sm'>

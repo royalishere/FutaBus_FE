@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = React.memo(() => {
     return (
-        <footer className="w-full bg-gray-100 block">
+        <footer className="mt-5 w-full bg-gray-100 block">
             <div className="flex flex-wrap gap-14 p-4 justify-center sm:gap-14">
                 <div className="flex flex-col">
                     <div className="flex flex-col gap-2 justify-content-between max-w-lg">
