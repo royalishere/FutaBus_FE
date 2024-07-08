@@ -1,4 +1,5 @@
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
+import {AuthProvider} from "./contexts/useAuth.jsx";
 import Login from './pages/Login'
 import PaymentInfoComponent from './pages/Payment'
 import Home from './pages/HomePage';
@@ -9,16 +10,18 @@ import OrderTicket from './pages/OrderTicket';
 function App() {
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/order-ticket" element={<OrderTicket/>}/>
-                <Route path="/payment-info" element={<PaymentInfoComponent/>}/>
-                <Route path="/schedule" element={<Schedule/>}/>
-                <Route path="/search-ticket" element={<SearchTicket/>}/>
-            </Routes>
-        </Router>
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/order-ticket" element={<OrderTicket/>}/>
+                    <Route path="/payment-info" element={<PaymentInfoComponent/>}/>
+                    <Route path="/schedule" element={<Schedule/>}/>
+                    <Route path="/search-ticket" element={<SearchTicket/>}/>
+                </Routes>
+            </Router>
+        </AuthProvider>
     )
 }
 
