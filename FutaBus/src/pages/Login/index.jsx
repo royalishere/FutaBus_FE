@@ -6,9 +6,76 @@ import network from '../../assets/network.svg';
 import {Button, Form} from 'react-bootstrap';
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
+import {useAuth} from "../../contexts/useAuth.jsx";
+import ToastContainer from "../../components/Toast.jsx";
+import {toast} from 'react-toastify';
+import {Navigate, useNavigate} from 'react-router-dom';
 
 const LoginComponent = () => {
+    const navigate = useNavigate();
+    const {token, loginUser, registerUser} = useAuth();
+    // Redirect to home page if user is logged in
+    if (token) {
+        return <Navigate to={'/'}/>
+    }
+
     const [activeTab, setActiveTab] = useState('login');
+    const [errors, setErrors] = useState({
+        passwordMismatch: false,
+    });
+
+    const [form, setForm] = useState({
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+    });
+
+    const handleChange = (e) => {
+        setForm(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+        if (e.target.name === 'passwordConfirmation') {
+            e.target.value ? setErrors({...errors, passwordMismatch: e.target.value !== form.password}) : setErrors({...errors, passwordMismatch: false});
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (activeTab === 'login') {
+            try {
+                const response = await loginUser(form.email, form.password);
+                if (response && response.value) {
+                    navigate('/');
+                }
+            } catch (error) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Email hoặc mật khẩu không đúng');
+                        break;
+
+                    case 404:
+                        toast.error('Tài khoản không tồn tại');
+                        break;
+
+                    default:
+                        toast.error('Đã xảy ra lỗi');
+                        break;
+                }
+            }
+
+        } else {
+            try {
+                await registerUser(form);
+                toast.success('Đăng ký tài khoản thành công');
+                setActiveTab('login');
+            } catch (error) {
+                if (error.response.status === 409) {
+                    toast.error('Email đã tồn tại');
+                }
+            }
+        }
+    }
 
     const handleActiveTab = (tab) => {
         setActiveTab(tab);
@@ -16,6 +83,7 @@ const LoginComponent = () => {
 
     return (
         <>
+            <ToastContainer/>
             <Header/>
             <div className="flex items-center justify-center bg-gray-100">
                 <div className="bg-gray-100 flex justify-center absolute top-[100px] border-orange-500 border-2 rounded-xl p-4">
@@ -46,16 +114,18 @@ const LoginComponent = () => {
                             </div>
                             {activeTab === 'login' && (
                                 <div className="w-full">
-                                    <Form className="flex flex-col mt-4">
+                                    <Form className="flex flex-col mt-4" onSubmit={handleSubmit}>
                                         <Form.Group className="mt-3" controlId="formEmail">
                                             <Form.Label className="flex"><EnvelopeIcon
                                                 className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
+                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                                          name="email" onChange={handleChange} value={form.email} required/>
                                         </Form.Group>
 
                                         <Form.Group className="mt-3" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                                          name="password" onChange={handleChange} value={form.password} required/>
                                         </Form.Group>
                                         <Button variant="primary" type="submit" className="mt-4 py-[10px] bg-orange-500 border-0 rounded-3xl w-full hover:bg-orange-700">
                                             Đăng nhập
@@ -66,21 +136,27 @@ const LoginComponent = () => {
                             )}
                             {activeTab === 'register' && (
                                 <div className="w-full">
-                                    <Form className="flex flex-col mt-4">
+                                    <Form className="flex flex-col mt-4" onSubmit={handleSubmit}>
                                         <Form.Group className="mt-3" controlId="formEmail">
                                             <Form.Label className="flex"><EnvelopeIcon
                                                 className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 focus:ring-4 focus:ring-orange-500/[.6] text-lg" required/>
+                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 focus:ring-4 focus:ring-orange-500/[.6] text-lg"
+                                                          name="email" onChange={handleChange} value={form.email} required/>
                                         </Form.Group>
 
                                         <Form.Group className="mt-3" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                                          name="password" onChange={handleChange} value={form.password} required/>
                                         </Form.Group>
                                         <Form.Group className="mt-3" controlId="formConfirmPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Xác nhận mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]" required/>
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                                          name="passwordConfirmation" onChange={handleChange} value={form.passwordConfirmation} required/>
                                         </Form.Group>
+                                        {errors.passwordMismatch && (
+                                            <span className="text-red-500 text-sm mt-1">Mật khẩu không khớp</span>
+                                        )}
                                         <Button variant="primary" type="submit" className="mt-4 py-[10px] bg-orange-500 border-0 rounded-3xl w-full hover:bg-orange-700">
                                             Đăng ký
                                         </Button>

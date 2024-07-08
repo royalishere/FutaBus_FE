@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
 import DropDown from './DropDown.jsx';
 import CalendarDropdown from './Calendar.jsx';
+import {useNavigate} from "react-router-dom";
 
 const TripsSelectBox = ({options, origins}) => {
-
-    const [form, setForm] = useState({
-        depart: null, // Initial value for departure selection
-        arrive: null, // Initial value for arrival selection
-        num: null, // Initial value for number selection
-        startDate: null, // Initial value for start date selection
+    const navigate = useNavigate();
+    const [query, setQuery] = useState({
+        originCode: '',
+        destCode: '',
+        fromDate: '',
     })
 
     const handleSubmit = () => {
-        console.log(form);
+        //navigate to order ticket page
+        navigate(`/order-ticket?originCode=${query.originCode}&destCode=${query.destCode}&fromDate=${query.fromDate}`)
     }
 
     return (
@@ -31,7 +32,7 @@ const TripsSelectBox = ({options, origins}) => {
                         }))}
 
                         onSelect={(value) => {
-                            setForm({...form, depart: value?.value})
+                            setQuery({...query, originCode: value?.value})
                         }}
                     />
                     <DropDown
@@ -43,13 +44,13 @@ const TripsSelectBox = ({options, origins}) => {
                         }))}
 
                         onSelect={(value) => {
-                            setForm({...form, arrive: value?.value})
+                            setQuery({...query, destCode: value?.value})
                         }}
                     />
                     <CalendarDropdown
                         title={'Ngày đi'}
                         onSelectDate={(value) => {
-                            setForm({...form, startDate: value})
+                            setQuery({...query, fromDate: value})
                         }}
                     />
                     <DropDown
@@ -57,7 +58,7 @@ const TripsSelectBox = ({options, origins}) => {
                         label='Select an option'
                         options={options}
                         onSelect={(value) => {
-                            setForm({...form, num: value?.value})
+                            setQuery({...query, num: value?.value})
                         }}
                     />
                 </div>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import TripsSelectBox from "../../components/TripsSelectBox.jsx";
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
-import {getAllOrigins} from "../../services/origins.jsx";
+import {getAllOrigins} from "../../services/originsApi.jsx";
 import gather from '../../assets/gather.svg';
 import icon_1 from '../../assets/Group.svg';
 import icon_2 from '../../assets/Store.svg';
