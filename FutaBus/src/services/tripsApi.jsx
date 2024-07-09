@@ -23,3 +23,8 @@ export const getTripsByCodes = async (originCode, destCode, fromDate) => {
     const response = await axios.get(`${apiUrl}/trips?${query}`);
     return response.data;
 }
+
+export const getTripsById = async (id) => {
+    const response = await axios.get(`${apiUrl}/trips/${id}`);
+    return response.data;
+}

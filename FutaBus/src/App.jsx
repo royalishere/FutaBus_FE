@@ -6,7 +6,7 @@ import Home from './pages/HomePage';
 import Schedule from './pages/Schedule';
 import SearchTicket from './pages/SearchTicket';
 import OrderTicket from './pages/OrderTicket';
-import TicketDetail from './pages/TicketDetail/index.jsx';
+import Booking from "./pages/Booking";
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/order-ticket" element={<OrderTicket/>}/>
-                    <Route path="/ticket-detail" element={<TicketDetail/>}/>
+                    <Route path="/booking" element={<Booking/>}/>
                     <Route path="/payment-info" element={<PaymentInfoComponent/>}/>
                     <Route path="/schedule" element={<Schedule/>}/>
                     <Route path="/search-ticket" element={<SearchTicket/>}/>

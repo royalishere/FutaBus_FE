@@ -1,9 +1,9 @@
 import React from 'react';
-import {formatHour} from "../utils/helpers";
+import {formatHour} from "../utils/helpers.js";
 
 const Ticket = ({trip, route}) => {
     return (
-        <div className='relative container my-5 py-3 w-[60%] h-[200px] rounded-md bg-white p-5 drop-shadow-lg'>
+        <div className='relative container my-3 py-3 w-full h-[180px] rounded-md bg-white p-5 drop-shadow-lg'>
             <div className='grid grid-cols-3 text-black gap-5'>
                 <div className='flex flex-col col-span-2 '>
                     <div className='flex justify-between items-center gap-2'>
@@ -32,11 +32,11 @@ const Ticket = ({trip, route}) => {
                         </div>
                     </div>
                     <span className='text-[32px] font-semibold text-orange-500 self-arrival_Time'>
-            {trip.unitPrice}đ
-          </span>
+                    {trip.unitPrice} đ
+                    </span>
                 </div>
                 <div className='flex flex-col gap-2 '>
-                    <a href="#" className='absolute bottom-[5%] left-1/2 -translate-x-1/2 bg-orange-200 text-orange-600 py-2 px-3 rounded-full hover:ring-2 hover:ring-orange-400'>
+                    <a href={`booking?tripId=${trip.id}`} className='absolute bottom-[5%] left-1/2 -translate-x-1/2 bg-orange-200 text-orange-600 py-2 px-3 rounded-full hover:ring-2 hover:ring-orange-400'>
                         Chọn Chuyến
                     </a>
                 </div>
