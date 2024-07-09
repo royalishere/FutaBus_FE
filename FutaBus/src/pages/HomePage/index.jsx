@@ -7,15 +7,16 @@ import gather from '../../assets/gather.svg';
 import icon_1 from '../../assets/Group.svg';
 import icon_2 from '../../assets/Store.svg';
 import icon_3 from '../../assets/Bus.svg';
+import {useAuth} from "../../contexts/useAuth.jsx";
 
 const options = [
     {value: 1, label: '1 vé'},
     {value: 2, label: '2 vé'},
     {value: 3, label: '3 vé'},
+    {value: 4, label: '4 vé'},
 ]
 
 export default function Home() {
-
     const [origins, setOrigins] = useState([]);
 
     useEffect(() => {

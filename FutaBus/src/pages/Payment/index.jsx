@@ -6,10 +6,43 @@ import SmartBanking from '../../assets/smart_banking.svg';
 import ZaloPay from '../../assets/zalopay.svg';
 import MoMo from '../../assets/momo.svg';
 import Footer from "../../components/Footer.jsx";
+import {useLocation} from "react-router-dom";
+import {cancelBooking, finishBooking} from "../../services/bookingApi.jsx";
+import {toast} from "react-toastify";
+import ToastContainer from "../../components/Toast.jsx";
 
 const PaymentInfoComponent = () => {
+    const location = useLocation();
+    const queryParam = new URLSearchParams(window.location.search);
+    const bookingId = queryParam.get('bookingId');
+    const bookingInfo = location.state.booking;
+    const request = {
+        bookingId: bookingId,
+        tripId: bookingInfo.tripId,
+        customerId: bookingInfo.customerId,
+    }
+
+    const handlePayment = async () => {
+        try {
+            const response = await finishBooking(bookingId, request);
+            toast.success('Thanh toán thành công');
+        } catch {
+            toast.error('Thanh toán thất bại');
+        }
+    }
+
+    const handleCancel = async () => {
+        try {
+            const response = await cancelBooking(bookingId, request);
+            window.location.href = `/booking?tripId=${bookingInfo.tripId}`;
+        } catch {
+            toast.error('Đã có lỗi xảy ra');
+        }
+    }
+
     return (
         <>
+            <ToastContainer/>
             <Header/>
             <div className="payment-info-container">
                 <div className="payment-column">
@@ -40,6 +73,11 @@ const PaymentInfoComponent = () => {
                     <h3>Thời gian giữ chỗ còn lại</h3>
                     <p className='number'>19:59</p>
                     <img src={QRcode} loading="lazy" decoding="async" alt="QR Code" className="qr-code-image"/>
+
+                    <div className="flex justify-center">
+                        <button className="bg-green-500 text-white rounded-md py-2 px-4 mx-2 hover:bg-green-700" onClick={handlePayment}>Thanh toán</button>
+                        <button className="bg-red-500 text-white rounded-md py-2 px-4 mx-2 hover:bg-red-700" onClick={handleCancel}>Hủy vé</button>
+                    </div>
                 </div>
 
                 <div className="payment-column">
@@ -47,15 +85,15 @@ const PaymentInfoComponent = () => {
                         <h3>Thông tin hành khách</h3>
                         <div className="info-item">
                             <div className="info-label">Họ và tên:</div>
-                            <div className="info-value">Nguyễn Văn A</div>
+                            <div className="info-value">{bookingInfo?.fullName}</div>
                         </div>
                         <div className="info-item">
                             <div className="info-label">Số điện thoại:</div>
-                            <div className="info-value">0987654321</div>
+                            <div className="info-value">{bookingInfo?.phoneNumber}</div>
                         </div>
                         <div className="info-item">
                             <div className="info-label">Email:</div>
-                            <div className="info-value">abc@example.com</div>
+                            <div className="info-value">{bookingInfo?.email}</div>
                         </div>
                     </div>
 

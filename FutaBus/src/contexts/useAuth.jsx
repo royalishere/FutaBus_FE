@@ -15,9 +15,13 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        const currentUser = localStorage.getItem('currentUser');
         if (token) {
             setToken(token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+        if (currentUser) {
+            setCurrentUser(JSON.parse(currentUser));
         }
         setLoading(false);
     }, [token]);
@@ -28,11 +32,11 @@ export const AuthProvider = ({children}) => {
             setToken(response.value.accessToken);
             localStorage.setItem('token', response.value.accessToken);
 
-            setCurrentUser({
+            localStorage.setItem('currentUser', JSON.stringify({
                 userId: response.value.userId,
                 accessToken: response.value.accessToken,
                 refreshToken: response.value.refreshToken,
-            });
+            }));
         }
         return response;
     }
@@ -43,6 +47,7 @@ export const AuthProvider = ({children}) => {
 
     const logoutUser = async () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
         setToken(null);
         setCurrentUser({
             userId: null,

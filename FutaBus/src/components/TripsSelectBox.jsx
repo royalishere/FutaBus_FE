@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import DropDown from './DropDown.jsx';
 import CalendarDropdown from './Calendar.jsx';
-import {useNavigate} from "react-router-dom";
+import {formatDate} from "../utils/helpers.js";
 
-const TripsSelectBox = ({options, origins}) => {
-    const navigate = useNavigate();
+const TripsSelectBox = ({options, origins, default_val}) => {
     const [query, setQuery] = useState({
         originCode: '',
         destCode: '',
         fromDate: '',
     })
+    const queryParams = new URLSearchParams(window.location.search);
 
     const handleSubmit = () => {
         //navigate to order ticket page
-        navigate(`/order-ticket?originCode=${query.originCode}&destCode=${query.destCode}&fromDate=${query.fromDate}`)
+        window.location.href = `/order-ticket?originCode=${query.originCode}&destCode=${query.destCode}&fromDate=${query.fromDate}`;
     }
 
     return (
         <>
-            <div className='relative container my-5 py-3 w-[60%] h-[200px] rounded-md border-2 bg-white p-4 border-blue-500 shadow-xl'>
+            <div className='relative container my-10 py-3 w-[60%] h-[200px] rounded-md border-2 bg-white p-4 border-blue-500 shadow-xl'>
                 <div className='flex items-center space-x-4 text-black my-3'>
                     <span className='text-xl font-semibold'>Chuyến một chiều</span>
                 </div>
@@ -50,7 +50,7 @@ const TripsSelectBox = ({options, origins}) => {
                     <CalendarDropdown
                         title={'Ngày đi'}
                         onSelectDate={(value) => {
-                            setQuery({...query, fromDate: value})
+                            setQuery({...query, fromDate: formatDate(value)})
                         }}
                     />
                     <DropDown
