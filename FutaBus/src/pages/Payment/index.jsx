@@ -26,6 +26,10 @@ const PaymentInfoComponent = () => {
         try {
             const response = await finishBooking(bookingId, request);
             toast.success('Thanh toán thành công');
+            // wait for 3 seconds before redirecting to the homepage
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
         } catch {
             toast.error('Thanh toán thất bại');
         }

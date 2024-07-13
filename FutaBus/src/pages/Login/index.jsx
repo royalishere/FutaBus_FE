@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {EnvelopeIcon, LockClosedIcon} from '@heroicons/react/24/outline';
+import {EnvelopeIcon, LockClosedIcon, UserIcon, PhoneIcon} from '@heroicons/react/24/outline';
 import banner from '../../assets/TVC.svg';
 import logoText from '../../assets/logoText.svg';
 import network from '../../assets/network.svg';
@@ -25,6 +25,8 @@ const LoginComponent = () => {
     });
 
     const [form, setForm] = useState({
+        fullName: '',
+        phoneNumber: '',
         email: '',
         password: '',
         passwordConfirmation: '',
@@ -118,13 +120,13 @@ const LoginComponent = () => {
                                         <Form.Group className="mt-3" controlId="formEmail">
                                             <Form.Label className="flex"><EnvelopeIcon
                                                 className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                            <Form.Control type="email" placeholder="Nhập email" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
                                                           name="email" onChange={handleChange} value={form.email} required/>
                                         </Form.Group>
 
                                         <Form.Group className="mt-3" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
                                                           name="password" onChange={handleChange} value={form.password} required/>
                                         </Form.Group>
                                         <Button variant="primary" type="submit" className="mt-4 py-[10px] bg-orange-500 border-0 rounded-3xl w-full hover:bg-orange-700">
@@ -137,21 +139,32 @@ const LoginComponent = () => {
                             {activeTab === 'register' && (
                                 <div className="w-full">
                                     <Form className="flex flex-col mt-4" onSubmit={handleSubmit}>
-                                        <Form.Group className="mt-3" controlId="formEmail">
-                                            <Form.Label className="flex"><EnvelopeIcon
-                                                className="size-5 mr-2"/>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 focus:ring-4 focus:ring-orange-500/[.6] text-lg"
+                                        <Form.Group className="mt-2" controlId="formFullname">
+                                            <Form.Label className="flex"><UserIcon className="size-5 mr-2"/>Họ và tên</Form.Label>
+                                            <Form.Control type="text" placeholder="Nhập họ và tên" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
+                                                          name="fullName" onChange={handleChange} value={form.fullName} required/>
+                                        </Form.Group>
+
+                                        <Form.Group className="mt-2" controlId="formPhoneNumber">
+                                            <Form.Label className="flex"><PhoneIcon className="size-5 mr-2"/>Số điện thoại</Form.Label>
+                                            <Form.Control type="text" placeholder="Nhập số điện thoại" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
+                                                          name="phoneNumber" onChange={handleChange} value={form.phoneNumber} required/>
+                                        </Form.Group>
+
+                                        <Form.Group className="mt-2" controlId="formEmail">
+                                            <Form.Label className="flex"><EnvelopeIcon className="size-5 mr-2"/>Email</Form.Label>
+                                            <Form.Control type="email" placeholder="Nhập email đăng ký" className="border-orange-300 focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6] text-lg"
                                                           name="email" onChange={handleChange} value={form.email} required/>
                                         </Form.Group>
 
-                                        <Form.Group className="mt-3" controlId="formPassword">
+                                        <Form.Group className="mt-2" controlId="formPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
                                                           name="password" onChange={handleChange} value={form.password} required/>
                                         </Form.Group>
-                                        <Form.Group className="mt-3" controlId="formConfirmPassword">
+                                        <Form.Group className="mt-2" controlId="formConfirmPassword">
                                             <Form.Label className="flex"><LockClosedIcon className="size-5 mr-2"/>Xác nhận mật khẩu</Form.Label>
-                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:ring-orange-500/[.6]"
+                                            <Form.Control type="password" placeholder="Nhập mật khẩu" className="border-orange-300 text-lg focus:ring-4 focus:border-orange-300 focus:ring-orange-500/[.6]"
                                                           name="passwordConfirmation" onChange={handleChange} value={form.passwordConfirmation} required/>
                                         </Form.Group>
                                         {errors.passwordMismatch && (
@@ -166,7 +179,7 @@ const LoginComponent = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col items-center w-full text-center pt-[480px] sm:mx-20">
+                <div className="flex flex-col items-center w-full text-center pt-[620px] sm:mx-20">
                     <span className="text-green-800 font-bold text-2xl">Kết nối FUTA Group</span>
                     <span className="text-gray-500 text-xl">Đa dạng hệ sinh thái FUTA Group qua App FUTA: mua vé xe Phương Trang, Xe Hợp Đồng, Xe Buýt, Giao hàng...</span>
                     <img loading="lazy" decoding="async" src={network} alt="network" className="py-8"/>

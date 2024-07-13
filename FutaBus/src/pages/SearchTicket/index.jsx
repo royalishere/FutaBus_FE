@@ -1,16 +1,20 @@
 import Footer from '../../components/Footer.jsx';
 import Header from "../../components/Header.jsx";
 import React, {useState} from 'react';
+import {getByPhoneNumber} from "../../services/bookingApi.jsx";
+import PaidTicket from "../../components/PaidTicket.jsx";
 
 const SearchTicket = () => {
     const [phone, setPhone] = useState('');
-    const [ticket, setTicket] = useState('');
+    const [tickets, setTickets] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Phone:', phone);
-        console.log('Ticket:', ticket);
+        getByPhoneNumber(phone).then((response) => {
+            if (response && response.value) {
+                setTickets(response.value);
+            }
+        });
     };
 
     return (
@@ -33,25 +37,16 @@ const SearchTicket = () => {
                             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="ticket" className="sr-only">Mã vé</label>
-                        <input
-                            type="text"
-                            id="ticket"
-                            value={ticket}
-                            onChange={(e) => setTicket(e.target.value)}
-                            placeholder="Vui lòng nhập mã vé"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
-                    >
+                    <button type="submit" className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600">
                         Tra cứu
                     </button>
                 </form>
             </div>
+            {tickets.length > 0 &&
+                tickets.map((ticket, index) => ticket.status === 'Confirmed' && (
+                    <PaidTicket key={index} ticket={ticket}/>
+                ))
+            }
             <Footer/>
         </>
 
