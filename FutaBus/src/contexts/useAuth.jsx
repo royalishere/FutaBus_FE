@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {loginWithEmailAndPassword, logout, registerWithEmailAndPassword} from "../services/authApi.jsx";
+import {loginWithEmailAndPassword, logout, registerWithEmailAndPassword, getByUserId} from "../services/authApi.jsx";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -7,9 +7,11 @@ const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState({
-        userId: null,
-        accessToken: null,
-        refreshToken: null,
+        id: null,
+        fullName: null,
+        dateOfBirth: null,
+        email: null,
+        phoneNumber: null,
     })
     const [loading, setLoading] = useState(true);
 
@@ -29,15 +31,21 @@ export const AuthProvider = ({children}) => {
     const loginUser = async (email, password) => {
         const response = await loginWithEmailAndPassword(email, password);
         if (response && response.value) {
-            setToken(response.value.accessToken);
             localStorage.setItem('token', response.value.accessToken);
-
-            localStorage.setItem('currentUser', JSON.stringify({
-                userId: response.value.userId,
-                accessToken: response.value.accessToken,
-                refreshToken: response.value.refreshToken,
-            }));
         }
+        const user = await getByUserId(response.value.userId);
+        if (user && user.value) {
+            localStorage.setItem('currentUser', JSON.stringify(
+                {
+                    userId: user.value.id,
+                    fullName: user.value.fullName,
+                    dateOfBirth: user.value.dateOfBirth,
+                    email: user.value.email,
+                    phoneNumber: user.value.phoneNumber,
+                }
+            ));
+        }
+        setToken(response.value.accessToken ? response.value.accessToken : null);
         return response;
     }
 
@@ -51,8 +59,10 @@ export const AuthProvider = ({children}) => {
         setToken(null);
         setCurrentUser({
             userId: null,
-            accessToken: null,
-            refreshToken: null,
+            fullName: null,
+            dateOfBirth: null,
+            email: null,
+            phoneNumber: null,
         });
         return await logout();
     }

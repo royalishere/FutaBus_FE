@@ -7,14 +7,18 @@ import {ArrowRightStartOnRectangleIcon} from "@heroicons/react/24/outline";
 
 const Header = React.memo(() => {
     const hideNavbar = window.location.pathname === '/login';
-    const {token, logoutUser} = useAuth()
-
+    const {token, currentUser, logoutUser} = useAuth()
+    
     return (
         <>
             <header className="header relative w-full bg-[url('/banner.webp')] min-h-[180px]">
-                <div className="h-20 lg:flex lg:justify-between w-75 mx-auto">
-                    <div className="px-20"></div>
-                    <div className="flex">
+                <div className="h-20 lg:flex lg:justify-center w-75 mx-auto">
+                    {!token ? (
+                        <div className="px-20"></div>
+                    ) : (
+                        <div className="text-white py-2 max-w-[120px]">Xin chào, {currentUser?.fullName} </div>
+                    )}
+                    <div className="flex px-36">
                         <a href="/"><img alt="logo-min" loading="lazy" decoding="async" src={logo_min} className="h-auto w-[290px]"></img></a>
                     </div>
                     {token ? (

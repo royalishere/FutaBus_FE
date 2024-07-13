@@ -16,3 +16,8 @@ export const cancelBooking = async (id, data) => {
     const response = await axios.post(`${apiUrl}/bookings/${id}/cancel`, data);
     return response.data;
 }
+
+export const getByPhoneNumber = async (phoneNumber) => {
+    const response = await axios.get(`${apiUrl}/bookings?phoneNumber=${phoneNumber}`);
+    return response.data;
+}

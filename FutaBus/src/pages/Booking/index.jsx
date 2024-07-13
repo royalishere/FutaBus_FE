@@ -10,26 +10,6 @@ import {toast, ToastContainer} from "react-toastify";
 import {createBooking} from "../../services/bookingApi.jsx";
 import {useNavigate} from "react-router-dom";
 
-const options = [
-    {value: 1, label: 'BX 1'},
-    {value: 2, label: 'BX 2'},
-    {value: 3, label: 'BX 3'},
-];
-
-const tripDetails = {
-    route: 'Miền Đông Mới - Nha Trang',
-    departureTime: '21:30 08/07/2024',
-    seatCount: 1,
-    tripPrice: 0,
-};
-
-const priceDetails = {
-    ticketPrice: 0,
-    paymentFee: 0,
-};
-
-priceDetails.totalPrice = priceDetails.ticketPrice + priceDetails.paymentFee;
-
 const Booking = () => {
     const queryParam = new URLSearchParams(window.location.search);
     const navigate = useNavigate();
@@ -155,24 +135,49 @@ const Booking = () => {
                         <div className="mb-6 border border-gray-300 p-4 rounded">
                             <h2 className="text-xl mb-4 font-bold">Thông tin khách hàng</h2>
                             <form>
-                                <div className="form-group mb-2">
-                                    <label htmlFor="name" className="block mb-2">Họ và tên</label>
-                                    <input type="text" name="name" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
-                                           onChange={(e) => setFullName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group mb-2">
-                                    <label htmlFor="phone" className="block mb-2">Số điện thoại</label>
-                                    <input type="text" name="phone" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
-                                           onChange={(e) => setPhone(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group mb-2">
-                                    <label htmlFor="email" className="block mb-2">Email</label>
-                                    <input type="email" name="email" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
-                                           onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
+                                {currentUser.userId ? (
+                                    <>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="name" className="block mb-2">Họ và tên</label>
+                                            <input type="text" name="name" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   value={currentUser.fullName} disabled
+                                            />
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="phone" className="block mb-2">Số điện thoại</label>
+                                            <input type="text" name="phone" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   value={currentUser.phoneNumber} disabled
+                                            />
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="email" className="block mb-2">Email</label>
+                                            <input type="email" name="email" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   value={currentUser.email} disabled
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="name" className="block mb-2">Họ và tên</label>
+                                            <input type="text" name="name" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   onChange={(e) => setFullName(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="phone" className="block mb-2">Số điện thoại</label>
+                                            <input type="text" name="phone" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   onChange={(e) => setPhone(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="form-group mb-2">
+                                            <label htmlFor="email" className="block mb-2">Email</label>
+                                            <input type="email" name="email" className="w-full border-2 border-gray-500 p-2 text-sm rounded focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 focus:outline-none"
+                                                   onChange={(e) => setEmail(e.target.value)}
+                                            />
+                                        </div>
+                                    </>
+                                )}
                             </form>
                         </div>
 
